@@ -7,7 +7,7 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-
+  const [walletAddress, setWalletAddress] = useState(null);
 
 
   useEffect(() => {
@@ -30,11 +30,18 @@ const App = () => {
       const response = await solana.connect({ onlyIfTrusted: true });
       console.log('Connected with public key: ', response.publicKey.toString());
 
+      setWalletAddress(response.publicKey.toString());
+
     } catch (error) {
       console.error(error);
     }
   }
   const connectWallet = async () => {
+    const { solana } = window;
+    if (!solana) return;
+    const response = await solana.connect();
+    console.log('Connected with public key: ', response.publicKey.toString());
+    setWalletAddress(response.publicKey.toString());
   }
 
   const renderNotConnectedButton = () => (
@@ -57,7 +64,7 @@ const App = () => {
           <p className="sub-text">
             View your GIF collection in the metaverse ✨
           </p>
-          {renderNotConnectedButton()}
+          {!walletAddress && renderNotConnectedButton()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
