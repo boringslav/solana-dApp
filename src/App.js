@@ -15,7 +15,7 @@ const App = () => {
       await checkIfWalletIsConnected();
     })();
 
-  }, [])
+  }, []);
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -34,6 +34,20 @@ const App = () => {
       console.error(error);
     }
   }
+  const connectWallet = async () => {
+  }
+
+  const renderNotConnectedButton = () => (
+    <button
+      className="cta-button connect-wallet-button"
+      onClick={connectWallet}
+    >
+      Connect to Wallet
+    </button>
+  );
+
+
+
 
   return (
     <div className="App">
@@ -43,6 +57,7 @@ const App = () => {
           <p className="sub-text">
             View your GIF collection in the metaverse ✨
           </p>
+          {renderNotConnectedButton()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
