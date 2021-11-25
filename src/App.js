@@ -32,7 +32,7 @@ const App = () => {
     //call Solana program here
 
     setGifList(TEST_GIFS);
-  })
+  }, [walletAddress])
 
   const checkIfWalletIsConnected = async () => {
     try {
